@@ -48,19 +48,26 @@ async function searchMeal(e) {
 
 // Fetch meal by ID
 async function getMealById(mealId) {
+  const data = await getDataFromApi(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealId}`);
+  const [ meal ] = data.meals;
+
+  addMealToDOM(meal);
+}
+
+// get random meal
+async function getRandomMeal() {
   // Clear meals and heading
   mealsEl.innerHTML = '';
   resultHeading.innerHTML = '';
 
-  const data = await getDataFromApi(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealId}`);
-  let [ meal ] = data.meals;
+  const data = await getDataFromApi(`https://www.themealdb.com/api/json/v1/1/random.php`);
+  const [ meal ] = data.meals;
 
   addMealToDOM(meal);
 }
 
 // Add meal to DOM
 function  addMealToDOM(meal) {
-
   let ingredients = [];
 
   for (let i = 1; i <= 20; i++) {
@@ -93,6 +100,7 @@ function  addMealToDOM(meal) {
 
 // event listners
 submit.addEventListener('submit', searchMeal);
+random.addEventListener('click', getRandomMeal);
 
 mealsEl.addEventListener('click', e => {
   const meal = e.path.find(item => {
