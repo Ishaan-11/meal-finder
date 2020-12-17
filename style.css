@@ -45,6 +45,12 @@ input[type='text'] {
   border-bottom-right-radius: 4px;
 }
 
+.clear-btn {
+  cursor: pointer;
+  border-left: 0;
+  border-radius: 0;
+}
+
 .random-btn {
   cursor: pointer;
   margin-left: 10px;

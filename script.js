@@ -3,13 +3,22 @@ const search = document.getElementById('search'),
     random = document.getElementById('random'),
     resultHeading = document.getElementById('result-heading'),
     mealsEl = document.getElementById('meals'),
-    single_mealEl = document.getElementById('single-meal');
+    single_mealEl = document.getElementById('single-meal'),
+    clearBtn = document.getElementById('clear');
 
 
 // fetch data from APi
 async function getDataFromApi(url) {
   const response = await fetch(url);
   return response.json();
+}
+
+// Clear meals , heading and search value
+function clearData() {
+  mealsEl.innerHTML = '';
+  resultHeading.innerHTML = '';
+  single_mealEl.innerHTML = '';
+  search.value = '';
 }
 
 // Search meal and fetch from API
@@ -56,10 +65,7 @@ async function getMealById(mealId) {
 
 // get random meal
 async function getRandomMeal() {
-  // Clear meals , heading and search value
-  mealsEl.innerHTML = '';
-  resultHeading.innerHTML = '';
-  search.value = '';
+  clearData();
 
   const data = await getDataFromApi(`https://www.themealdb.com/api/json/v1/1/random.php`);
   const [ meal ] = data.meals;
@@ -102,6 +108,12 @@ function  addMealToDOM(meal) {
 // event listners
 submit.addEventListener('submit', searchMeal);
 random.addEventListener('click', getRandomMeal);
+
+
+clearBtn.addEventListener('click', e => {
+  e.preventDefault();
+  clearData();
+});
 
 mealsEl.addEventListener('click', e => {
   const meal = e.path.find(item => {
