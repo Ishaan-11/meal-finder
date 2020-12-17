@@ -56,9 +56,10 @@ async function getMealById(mealId) {
 
 // get random meal
 async function getRandomMeal() {
-  // Clear meals and heading
+  // Clear meals , heading and search value
   mealsEl.innerHTML = '';
   resultHeading.innerHTML = '';
+  search.value = '';
 
   const data = await getDataFromApi(`https://www.themealdb.com/api/json/v1/1/random.php`);
   const [ meal ] = data.meals;
